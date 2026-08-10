@@ -1,18 +1,21 @@
 # Pulse / CV-Bot file inventory
 
 File-specific facts observed in `CV-Bot – Designfiler`, file key
-`hrX50tyQXpSb7phWJ5y5Dp`. Node IDs are stable but everything else should be
-re-verified — this is a starting point, not a source of truth.
+`hrX50tyQXpSb7phWJ5y5Dp`. Node IDs are stable; everything else should be
+re-verified. **The component descriptions in the file are more current than this
+document** — read those first and treat this as an index.
 
 ## Pages
 
 | Page | ID |
 |---|---|
+| Cover | `425:921` |
 | 🖋️ Design | `240:1682` |
-| 🧱 Tokens | — |
+| 🧱 Tokens | `282:3549` |
 | 🧩 Komponenter | `11:130` |
 | 🖼️ Ikoner | `692:15086` |
-| ✏️ Skisser | — |
+| ✏️ Skisser | `9:2` |
+| 🔍 Oversikt og notater | `0:1` |
 
 ## Spacing scale — collection `Pulse-Numbers`
 
@@ -29,96 +32,131 @@ re-verified — this is a starting point, not a source of truth.
 | XXXL | 64 |
 | Full | 9999 |
 
-**There is no token for 10.** Any `itemSpacing: 10` you find is legacy, baked
-into a component. All padding in the library is already token-bound.
+**There is no token for 10.** Any `itemSpacing: 10` you find is legacy, baked into
+a component. All padding in the library is already token-bound.
 
 ## Colour variables in regular use
 
 `Surface/Inverse`, `Surface/Primary`, `Surface/Primary-Light`,
-`Surface/Secondary`, `Border/Weak`, `Border/Subtle`, `Text/Primary`,
-`Text/Subtle`.
+`Surface/Secondary`, `Surface/Tertiary`, `Surface/Highlight`, `Border/Weak`,
+`Border/Subtle`, `Border/Disabled`, `Border/Danger`, `Text/Primary`,
+`Text/Subtle`, `Text/Disabled`, `Text/Data`, `Feedback/Danger-subtle`.
 
-## Text styles
+## Effect styles
 
-Enumerate rather than trusting these — they are recorded only because they were
-used successfully:
+`Big softie` (table and card shadow), `Pulse - Blue glow` (app shell background
+glow — 1000px blur, never estimate it), `Portal - Big menu hover`.
 
-- `S:2a72250a84df36da21a2b0ba8e224e0c90e53bbc,` — body copy (Paragraph-M)
-- `S:0bdfcc666fdfe43ab091418e44def4295cb5c740,` — small subtle text (dates, meta)
+## Components
 
-```js
-return (await figma.getLocalTextStylesAsync()).map(s => ({ name: s.name, id: s.id }));
-```
+All 30 non-icon components carry a description. Read it before use.
 
-## Component IDs
+| Component | ID | Variants | Notes |
+|---|---|---|---|
+| Accordion | `606:4676` | 4 | Slot exists only while Open |
+| Alert | `602:3240` | 5 | |
+| Button | `240:695` | 45 | Two icon swaps, each with a Show toggle |
+| CV score | `282:2491` | 8 | Single-purpose, see below |
+| CV-List item | `282:4809` | 9 | Contains a CV score |
+| Card | `755:16012` | 1 | Slot |
+| Checkbox | `707:15752` | 16 | |
+| Divider | `282:5919` | 1 | Fixed width; set the instance to Fill |
+| Icon button | `282:3211` | 45 | `Icon` swap |
+| Input | `578:2410` | 28 | 7 Type states incl. Readonly |
+| List item | `498:1344` | 3 | Generic row, slot for trailing content |
+| Menu | `687:15037` | 1 | Slot; the open list for Select |
+| Menu-item | `687:14985` | 1 | Row inside Menu — **not** Navigation link |
+| Modal | `755:16051` | 1 | |
+| Navigation link | `240:1644` | 4 | App shell sidebar link |
+| Portal big navigation | `130:1744` | 3 | Fixed 280×128 by design |
+| Pulse - App shell | `974:20406` | 1 | Sidebar + content slot |
+| Radio button | `768:16104` | 16 | |
+| Select | `687:14876` | 10 | Trigger only; pair with Menu |
+| Tab | `768:17298` | 3 | |
+| **Table** | `1031:2` | 1 | Wrapper, two slots |
+| **Table cells** | `886:19537` | 3 | Cell primitive |
+| **Table row** | `1044:317` | 15 | `Columns` 2–6 × `Type` |
+| Tabs | `768:17319` | 5 | `Amount` 2–6 |
+| Tags | `84:844` | 8 | |
+| Text link | `240:1612` | 3 | |
+| Thinking anim | `193:1237` | 4 | |
+| Toggle switch | `768:17009` | 16 | |
+| Tooltip | `355:1499` | 1 | |
+| User | `240:1546` | 2 | |
 
-| Component | ID | Notes |
-|---|---|---|
-| Accordion | `606:4676` | closed `606:4674`, open `606:4686` |
-| Cell | `605:4204` | 4 variants |
-| Card | `755:16012` | slot fixed to auto-layout |
-| Modal | `755:16051` | slot fixed to auto-layout |
-| Column header | `605:4199` | standalone |
-| Column | `605:4265` | standalone |
-| Tags | `84:844` | 8 variants |
-| Button | `240:695` | 45 variants |
-| Icon button | `282:3211` | 45 variants |
-| Search | `554:2063` | |
-| Select | `687:14876` | |
-| Input | `578:2410` | 24 variants |
-| Alert | `602:3240` | |
-| Menu item | `240:1644` | |
-| Text link | `240:1612` | |
-| User | `240:1546` | |
-| CV score | `282:2491` | |
-| Toggle switch | `768:17009` | **in an error state** |
+Legacy, superseded by the table components but still present and still used by the
+old Kravmatrise screens: `Column header` `605:4199`, `Column` `605:4265`. The old
+`Cell` `605:4204` no longer exists.
 
 ## Page chrome anatomy
 
-Taken from the CV-Kvalitet screen, at 2560×1440:
+Now a component — `Pulse - App shell` `974:20406`, 2560×1440. Instance it rather
+than rebuilding:
 
 - background fill `Surface/Inverse`
-- glow ellipse — copy the effect array verbatim; the blur is **1000px**
+- glow ellipse using the `Pulse - Blue glow` effect style
 - sidebar 196 wide at `x: 24`
-- content card 2292 wide at `x: 244`, fill `Surface/Primary`
-- sidebar menu sits one third down, achieved with 1:2 spacer frames
+- content area exposed as `Slot`
+- the sidebar menu sits at ~30% of viewport height, achieved with three
+  equal-Fill spacer rectangles (one above the menu, two below). They are named
+  `Spacer 1fr … do not export` — implement as `margin-top: 30vh`, not as elements.
 
-## Known-broken components
+## Known asymmetries that are intentional
 
-Verified by auditing every property against every variant. These are **not**
-fixed — treat them as landmines.
+Do not report these as bugs; the owner has confirmed each.
+
+| Component | Behaviour |
+|---|---|
+| `Input` | `Show error message` is wired only on the 4 Error variants — the error message only exists there |
+| `Table cells` | The `Header` variant deliberately has no slot; it uses `Heading` + `Show icon` instead |
+| `Table cells` | Every cell draws a right-edge divider. On the last column it sits under the table border — that is how the trailing divider is hidden |
+| `Portal big navigation` | Fixed 280×128 on both axes, to force short app names |
+| `Modal` | No `Closable` toggle — the close button is always present |
+
+## Still open
 
 | Component | Problem |
 |---|---|
-| **Toggle switch** `768:17009` | 16 variants covering only 8 unique combinations — every one duplicated. `componentPropertyDefinitions` throws; unreadable via API until fixed in the editor. |
-| **Accordion** `606:4676` | `Title`, `Qualifier`, `Show qualifier` are wired only in the *Closed* variant. The header frame is `Title+Tag` in Closed and `Title+icon` in Open, which broke the bindings. Set the layers directly on Open. |
-| **Cell** `605:4204` | Three separate slot properties (`Slot#617:99`, `Slot#617:104`, `Slot 2#617:110`) because the slot layer is named `Slot` in two variants and `Slot 2` in the others. Switching variant drops the content. |
-| **Icon button** `282:3211` | `Label`, `Show left icon`, `Show right icon`, `Right icon` are wired in none of the 45 variants — dead properties copied from `Button`. Only `Left icon` works. |
-| **Input** `578:2410` | `Text#768:329` — the actual field text — is unwired in all 24 variants; you cannot set an input's content by property. `Show error message` works only on the 4 Error variants. `Påkrevd` is missing on Disabled. |
-| **CV score** `282:2491` | Large and Small have divergent internals: Large lacks `Kunde`, `Prosjekt`, `Show label`; Small lacks `Label`. |
-| **Column header** `605:4199` | Declares a `SLOT` property but contains no slot node. Set the text layer directly. |
+| `CV score` `282:2491` | `Label`, `Kunde`, `Prosjekt`, `Show label` are wired in only 4 of 8 variants — the Large/Small split. Accepted: it is a single-use component for the CV-quality list. Do not reuse it elsewhere without fixing this first. |
 
-Components that passed: `Tags`, `Button`, `Search`, `Select`, `Alert`,
-`Text link`, `Menu item`, `Portal big menu`, `Tab`.
+## Fixed since the previous version of this file
+
+Do not re-report any of these.
+
+- **Accordion** — `Title`, `Qualifier`, `Show qualifier`, `Show tag` now bound in
+  all four variants; values persist across every state change.
+- **Input** — the dead `Text#768:329` property (default `-14`) removed; `Påkrevd`
+  now wired on the Disabled variants; a **Readonly** Type added (28 variants).
+  Readonly means submitted-and-validated-but-not-editable; Disabled means not
+  applicable and not submitted.
+- **Icon button** — the dead `Label` / `Show left icon` / `Show right icon` /
+  `Right icon` properties are gone; a working `Icon` instance-swap added.
+- **Toggle switch** — no longer in an error state; `componentPropertyDefinitions`
+  reads normally. `Label` text property added.
+- **Checkbox**, **Radio button** — `Label` text property added.
+- **Tabs** — the redundant `Property 1` axis removed; `Amount` is the only axis.
+- **Tooltip** — `Text` property added; it no longer carries one hardcoded sentence.
+- **Modal** — `Heading`, `Qualifier` and `Show Qualifier` added.
+- **User** — the unnamed `Variant2` renamed; the axis is now `Type: Default | Hover`.
+- **Menu item → Navigation link**, **Portal big menu → Portal big navigation** —
+  the `Menu item` / `Menu-item` name collision is resolved.
+- **Consultant list → List item** — generalised: `Text`, `Qualifier`,
+  `Show qualifier`, and a `Slot` for trailing content that hugs its width.
+  `Type: Default | Hover | Selected`. Use on `Surface/Primary` only.
+- **Table**, **Table row**, **Table cells** — the table primitive the retro asked
+  for now exists. Row heights equalise themselves.
+- **Pulse - App shell** — the page shell is a component; the glow is an effect
+  style rather than a number living in one instance.
+- Every non-icon component now has a description.
 
 ## Defaults that are load-bearing
 
-`Tags` uses `-14` as default text on all eight variants, and 20 instances across
-CV-kvalitet and the Pulse sketches rely on it as **real score data**. The
-`Accordion`'s nested tag defaults to `Danger` for the same reason — a negative
-score should read red.
+The principle stands: **a default that looks wrong in isolation may be
+load-bearing in context.** Check instance usage before touching one, and say what
+you found.
 
-Both look like mistakes in isolation. Neither is. Check instance usage before
-touching a default.
-
-## Already fixed (do not re-report)
-
-- `Card` and `Modal` slots given auto-layout; roots changed from fixed to hug.
-  A card now grows 251 → 404px with 300px of content.
-- `Accordion`'s two closed variants' slots given auto-layout.
-- 180 `itemSpacing` values bound to tokens across 18 components. The `10 → S (8)`
-  changes were all on nodes with fewer than two visible children, so nothing
-  moved in the default state.
-- Placeholder text replaced in `Input`, `Search`, `Select`, `Tab`, `Menu-item`
-  and `Cell`. Body-copy lorem in `Alert` and `Portal big menu` was left alone —
-  it demonstrates text wrapping and is doing a job.
+The specific example previously recorded here — `Tags` defaulting to `-14` as
+real score data across CV-kvalitet — no longer matches the file: the `Tags` text
+default now reads `Lorem ipsum`. Instances that override the text are unaffected,
+but if you are working in CV-kvalitet, verify those scores still read correctly
+before assuming nothing regressed.
