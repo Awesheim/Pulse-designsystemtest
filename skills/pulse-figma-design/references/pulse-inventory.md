@@ -88,6 +88,25 @@ Legacy, superseded by the table components but still present and still used by t
 old Kravmatrise screens: `Column header` `605:4199`, `Column` `605:4265`. The old
 `Cell` `605:4204` no longer exists.
 
+## Icons
+
+Page 🖼️ Ikoner `692:15086`, three sections:
+
+| Section | ID | Size | Notes |
+|---|---|---|---|
+| Material Symbols 20px | `692:15087` | 20 | **The one you want.** This file mostly uses 20px icons |
+| Material Symbols 48px | `692:15090` | 48 | Static, one icon |
+| Ikoner Pulse | `692:15091` | 36 | Bespoke Pulse icons, not Material Symbols |
+
+Icons are Google Material Symbols, style `outlined`, weight 400, grade 0, no
+fill. Each is a 20×20 component containing one `VECTOR` named `Vector` with its
+fill bound to `Icon/Primary`.
+
+When a design needs an icon the file does not have, import it — recipe in
+`build-patterns.md` under *The icon you need is not in the icon set*. There is
+also a bulk-import plugin at `figma-plugins/material-symbols-importer` in the
+`Awesheim-portfolio` repo, but a single icon is faster to script.
+
 ## Page chrome anatomy
 
 Now a component — `Pulse - App shell` `974:20406`, 2560×1440. Instance it rather

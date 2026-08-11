@@ -121,6 +121,7 @@ that read as real content, and a glow effect that was four times too weak.
 | Row or cell heights do not equalise | Something in the chain is fixed rather than hug/fill | Every cell Fill height, every row Hug height |
 | Switching variant drops slot content | The slot layer resolves to different property IDs per variant | Rename the layers to match and rebind |
 | A default reads as real data | Placeholder like `-14` or `Lorem ipsum` | Check instance usage before changing it — see below |
+| The icon a design needs is not in the file | Only imported icons exist as components | Import it from Material Symbols into the 20px section — recipe in `build-patterns.md` |
 | Screen looks right, matches no other screen | Built from components, not from a reference | Mirror the nearest finished screen's rhythm |
 
 ## Before changing anything shared
