@@ -250,12 +250,23 @@ What a correct icon component looks like, verified against the existing ones:
 The vector is **not** always 20×20 inside the frame — it is the glyph's own
 bounding box (14×14 for `trophy-filled`, 15×12 for `send`). Do not "fix" that.
 
-### 3. Name it to match the section
+### 3. Name it in Title Case
 
-The 20px section is mostly lowercase-hyphenated — `arrow-back`, `content-copy`,
-`fact-check`. A handful of older ones are Title Case (`Check Box`,
-`Sort By Alpha`). Follow the hyphenated convention for anything new; single-word
-names like `send` are unambiguous either way.
+**Every icon in this file is Title Case with spaces** — `Arrow Back`,
+`Content Copy`, `Thumbs Up Double`, `Send`. This is the plugin's own convention,
+and the whole set was standardised to it, so there is nothing to match against
+case by case: just apply the same transform the plugin uses.
+
+```js
+const titleCase = s => s
+  .split(/[-_\s]+/).filter(Boolean)
+  .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+  .join(' ');
+
+// send -> Send,  arrow_back -> Arrow Back,  thumbs-up-double -> Thumbs Up Double
+```
+
+Do not introduce a lowercase or hyphenated name; the set no longer contains any.
 
 ### 4. Place it in the grid
 

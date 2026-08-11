@@ -102,6 +102,15 @@ Icons are Google Material Symbols, style `outlined`, weight 400, grade 0, no
 fill. Each is a 20×20 component containing one `VECTOR` named `Vector` with its
 fill bound to `Icon/Primary`.
 
+**Naming is Title Case with spaces**, matching the importer plugin — `Arrow Back`,
+`Content Copy`, `Thumbs Up Double`. All 39 icons were standardised to this; there
+are no lowercase or hyphenated names left. Keep new imports consistent.
+
+Two names appear twice, once per section, and have since before the rename:
+`Trophy` (`130:1535` 20px / `130:1795` Pulse) and `Edit` (`707:15354` 20px /
+`130:1799` Pulse). The 20px one is the Material Symbol; the Pulse one is the
+bespoke 36px icon. Pick by ID, not by name.
+
 When a design needs an icon the file does not have, import it — recipe in
 `build-patterns.md` under *The icon you need is not in the icon set*. There is
 also a bulk-import plugin at `figma-plugins/material-symbols-importer` in the
