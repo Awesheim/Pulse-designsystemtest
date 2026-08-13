@@ -15,19 +15,30 @@ skills/pulse-figma-design/
     ├── api-gotchas.md              Figma plugin API traps
     ├── audit.md                    verification scripts, and their blind spot
     └── pulse-inventory.md          tokens, component IDs, known-broken list
+
+agents/
+└── pulse-ui-designer.md            role and limits for the building agent
 ```
+
+The skill is the knowledge; an agent is a role and a set of limits. Agents load
+the skill rather than restating it, so there is one source of truth and nothing
+to keep in sync.
 
 ## Installing it into an agent
 
-**Claude Code** — copy the folder into either location:
+**Claude Code** — copy the folders into either location:
 
 ```bash
 cp -r skills/pulse-figma-design ~/.claude/skills/          # all projects
 cp -r skills/pulse-figma-design /path/to/project/.claude/skills/   # one project
+
+cp -r agents/. ~/.claude/agents/                           # all projects
+cp -r agents/. /path/to/project/.claude/agents/            # one project
 ```
 
-It loads on the next session. The agent decides when to use it from the
-`description` field in `SKILL.md`.
+They load on the next session. The agent decides when to use the skill from the
+`description` field in `SKILL.md`, and Claude decides when to delegate to an
+agent from the `description` in its frontmatter.
 
 **Any other agent** — the files are plain Markdown with no runtime dependencies.
 Paste `SKILL.md` into a system prompt and attach the reference files, or hand the
