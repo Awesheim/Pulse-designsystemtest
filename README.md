@@ -30,12 +30,24 @@ before touching an existing component, and can never publish. The reviewer can
 measure but never fixes — the moment a reviewer edits, nobody knows what the file
 looked like when it was reviewed.
 
-Accessibility lives in the reviewer rather than in an agent of its own, because
-most of accessibility is not visible in a Figma file. Contrast, focus states,
-target size and colour-as-sole-meaning are checkable there; keyboard order,
-screen reader announcement and ARIA semantics are not. The reviewer is required
-to say which of those it could not check, so a clean report is never mistaken for
-an accessible design.
+Accessibility and UX live in the reviewer rather than in agents of their own,
+because most of both is not visible in a Figma file. Contrast, focus states,
+target size and colour-as-sole-meaning are checkable; keyboard order, screen
+reader announcement and ARIA semantics are not. Missing states, content that
+breaks with real data and inconsistent patterns are checkable; whether the design
+solves the right problem is not — that needs user goals and research the file does
+not contain.
+
+So the reviewer covers the checkable subset of each and is required to name what
+it could not judge. A clean report is never mistaken for an accessible design or
+a validated one. Split those out into their own agents when there is an input
+they would have and the reviewer does not — written flows and user goals, or a
+codebase to inspect.
+
+The general rule: **split agents by permission, not by topic.** Designer and
+reviewer differ in what they are allowed to do, which is a boundary you can see
+from outside. Layout, UX and accessibility are topics — agents split that way
+share permissions, overlap in scope, and leave gaps at the seams.
 
 ## Installing it into an agent
 
