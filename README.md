@@ -17,12 +17,25 @@ skills/pulse-figma-design/
     └── pulse-inventory.md          tokens, component IDs, known-broken list
 
 agents/
-└── pulse-ui-designer.md            role and limits for the building agent
+├── pulse-ui-designer.md            builds; asks before changing components
+└── pulse-design-reviewer.md        reports only; never edits
 ```
 
 The skill is the knowledge; an agent is a role and a set of limits. Agents load
 the skill rather than restating it, so there is one source of truth and nothing
 to keep in sync.
+
+The two agents are deliberately asymmetric. The designer can write but must ask
+before touching an existing component, and can never publish. The reviewer can
+measure but never fixes — the moment a reviewer edits, nobody knows what the file
+looked like when it was reviewed.
+
+Accessibility lives in the reviewer rather than in an agent of its own, because
+most of accessibility is not visible in a Figma file. Contrast, focus states,
+target size and colour-as-sole-meaning are checkable there; keyboard order,
+screen reader announcement and ARIA semantics are not. The reviewer is required
+to say which of those it could not check, so a clean report is never mistaken for
+an accessible design.
 
 ## Installing it into an agent
 
