@@ -3,6 +3,26 @@
 Run these before you commit to a component. Each is one `use_figma` call and
 saves you from discovering the problem after the layout is built.
 
+## 0. Read the description first
+
+Every non-icon component in this file has one, and it is cheaper than any probe.
+The descriptions record required steps, sizing contracts, hard limits, and which
+odd-looking behaviours are deliberate — most of what the probes below would tell
+you, already written down.
+
+```js
+const page = await figma.getNodeByIdAsync('11:130');   // 🧩 Komponenter
+await page.loadAsync();
+return page.children
+  .filter(n => n.type === 'COMPONENT_SET' || n.type === 'COMPONENT')
+  .filter(n => n.description)
+  .map(n => ({ id: n.id, name: n.name, description: n.description }));
+```
+
+Probe **in addition** when the description does not settle the question, when you
+are about to hand-build a replacement, or when what you see disagrees with what it
+says. If it disagrees, the file is the truth — fix the description afterwards.
+
 ## 1. Which slots can actually grow
 
 A slot with `layoutMode: NONE` will not resize to its content. `slot.resize()`
@@ -114,6 +134,16 @@ Read the result like this:
 - **the set throws on `componentPropertyDefinitions`** — duplicated variant
   combinations. The set cannot be read by the API at all until a human fixes it
   in the editor.
+
+Partial wiring is not automatically a defect. Several components in this file are
+deliberately asymmetric — a property that only makes sense in one state is bound
+only there. Check `pulse-inventory.md` and the component's own description before
+reporting one; the intentional cases are listed.
+
+Note that a missing binding is not always a missing *reference* — sometimes the
+layer itself was deleted from that variant, and the fix is to restore the layer
+before rebinding. `Input`'s required tag was missing from the Disabled variants
+for exactly this reason.
 
 ## 3. Read a component's real recipe
 
