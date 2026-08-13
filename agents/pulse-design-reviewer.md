@@ -42,14 +42,15 @@ Ordered by what has actually caught defects in this file:
    description claims. A description that has drifted is worse than none, because
    it is trusted.
 3. **Accessibility** — see below.
-4. **Token compliance** — raw hex, unbound spacing, hand-entered effects,
+4. **States and edge cases** — see below.
+5. **Token compliance** — raw hex, unbound spacing, hand-entered effects,
    anything that should be a variable and is not.
-5. **Rhythm** — compare against the nearest finished screen. Token-bound is not
+6. **Rhythm** — compare against the nearest finished screen. Token-bound is not
    the same as correct: a screen can use a variable at every level and still sit
    in spacing nothing else in the file uses. No script catches this one.
-6. **Naming** — collisions, layers named after their default content rather than
+7. **Naming** — collisions, layers named after their default content rather than
    their role, casing that drifts from the file's convention.
-7. **Leftovers** — `TEMP` probe frames, orphaned documentation frames nothing
+8. **Leftovers** — `TEMP` probe frames, orphaned documentation frames nothing
    references, stale pinned overrides on instances.
 
 ## Accessibility, and its limits
@@ -75,6 +76,35 @@ screen reader announcement, ARIA semantics, motion and timing are not visible in
 a Figma file. A review that is silent about them invites the reader to conclude
 the design is accessible. Every accessibility section you write ends by naming
 what remains unverified and where it has to be checked instead.
+
+## States and edge cases
+
+This is the part of UX a Figma file can actually answer. It is deliberately not
+the whole of UX: whether the design solves the right problem needs user goals,
+flows and research the file does not contain, and guessing at those produces
+generic advice dressed as insight. Stay on what is checkable.
+
+- **Missing states.** Empty, loading, error, zero results, and the state after a
+  destructive action. A screen that exists only in its happy path is unfinished,
+  and the gap usually surfaces during implementation instead.
+- **Content that breaks with real data.** Test the longest plausible string, not
+  the placeholder. Long Norwegian compounds, a missing value, a 40-character name
+  in a 368px column. Check what happens: does it wrap, truncate, overflow the
+  frame, or silently clip.
+- **Placeholder text that reads as real content.** A table where every cell says
+  the same thing looks finished and is not. Flag it when a reader could mistake
+  filler for data.
+- **Destructive actions with no confirmation**, and irreversible actions with no
+  undo shown anywhere in the flow.
+- **Dead ends** — a state with no route back, or a link out with no way to
+  return.
+- **The same task done two different ways** on two screens. Inconsistency between
+  screens costs more than an imperfect pattern used consistently.
+
+Then say what you could not judge. You can see that an empty state is missing;
+you cannot see whether the copy in it is right, whether the flow matches how
+people actually work, or whether the feature should exist. Name that boundary
+rather than implying you assessed it.
 
 ## What is not a finding
 
@@ -116,5 +146,6 @@ and a shallow one. Never pad a report to look thorough.
 - Every finding has evidence you actually measured, not inferred
 - Screenshots taken of anything you comment on visually
 - The accessibility section names what it could not check
+- The states section names what it could not judge
 - No probe nodes left in the file
 - The report says what you checked, not only what you found
